@@ -1,6 +1,6 @@
 import { ec } from "elliptic";
 import CryptoJS from "crypto-js";
-
+import { keccak256 } from "js-sha3";
 import { Buffer } from "buffer/";
 
 export class PrivKeySecp256k1 {
@@ -54,12 +54,18 @@ export class PubKeySecp256k1 {
   }
 
   getAddress(): Uint8Array {
-    let hash = CryptoJS.SHA256(
-      CryptoJS.lib.WordArray.create(this.pubKey as any)
-    ).toString();
-    hash = CryptoJS.RIPEMD160(CryptoJS.enc.Hex.parse(hash)).toString();
+    const secp256k1 = new ec("secp256k1");
 
-    return new Uint8Array(Buffer.from(hash, "hex"));
+    // Decode public key
+    const key = secp256k1.keyFromPublic(this.pubKey, "hex");
+
+    // Convert to uncompressed format
+    const publicKey = key.getPublic().encode("hex", false).slice(2);
+
+    // Apply keccak
+    const address = keccak256(Buffer.from(publicKey, "hex")).slice(64 - 40);
+
+    return new Uint8Array(Buffer.from(address, "hex"));
   }
 
   toKeyPair(): ec.KeyPair {
