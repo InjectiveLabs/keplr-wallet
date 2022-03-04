@@ -347,6 +347,9 @@ export class KeyRingService {
         makeSignBytes(newSignDoc)
       );
 
+      console.log("Signature process: ");
+      console.log({ signature, newSignDoc: newSignDoc.toJSON() });
+
       return {
         signed: newSignDoc,
         signature: encodeSecp256k1Signature(key.pubKey, signature),

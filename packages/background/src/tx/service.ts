@@ -81,6 +81,9 @@ export class BackgroundTxService {
         params
       );
 
+      console.log("Broadcasted details: ");
+      console.log({ isProtoTx, tx, chainId, result });
+
       const txResponse = isProtoTx ? result.data["tx_response"] : result.data;
 
       if (txResponse.code != null && txResponse.code !== 0) {
