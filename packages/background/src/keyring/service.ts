@@ -352,8 +352,8 @@ export class KeyRingService {
 
       return {
         signed: newSignDoc,
-        signature: encodeSecp256k1Signature(key.pubKey, signature),
-      };
+        signature: signature as any,
+      } as DirectSignResponse;
     } finally {
       this.interactionService.dispatchEvent(APP_PORT, "request-sign-end", {});
     }

@@ -15,9 +15,11 @@ import { Buffer } from "buffer/";
 import { ChainIdHelper } from "@keplr-wallet/cosmos";
 
 import { Wallet } from "@ethersproject/wallet";
-import * as BytesUtils from "@ethersproject/bytes";
+// import * as BytesUtils from "@ethersproject/bytes";
 import { ETH } from "@tharsis/address-converter";
-import { keccak256 } from "@ethersproject/keccak256";
+// import { keccak256 } from "@ethersproject/keccak256";
+import { keccak_256 } from "js-sha3";
+import secp256k1 from "secp256k1";
 
 export enum KeyRingStatus {
   NOTLOADED,
@@ -728,18 +730,17 @@ export class KeyRing {
         );
       }
 
+      const messageBuf = Buffer.from(message);
+      const messageHash = Buffer.from(keccak_256.update(messageBuf).digest());
       const privKey = this.loadPrivKey(coinType);
-
-      // Use ether js to sign Ethereum tx
-      const ethWallet = new Wallet(privKey.toBytes());
-
-      const signature = await ethWallet
-        ._signingKey()
-        .signDigest(keccak256(message));
-      const splitSignature = BytesUtils.splitSignature(signature);
-      return BytesUtils.arrayify(
-        BytesUtils.concat([splitSignature.r, splitSignature.s])
+      console.log(
+        Buffer.from(privKey.toBytes()).toString("hex"),
+        messageBuf.toString("hex"),
+        messageHash.toString("hex")
       );
+      const { signature } = secp256k1.ecdsaSign(messageHash, privKey.toBytes());
+      console.log(Buffer.from(signature).toString("hex"));
+      return signature;
     }
   }
 
