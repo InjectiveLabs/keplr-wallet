@@ -1,7 +1,7 @@
 PODS:
-  - Amplitude (8.2.0)
-  - amplitude-react-native (2.4.0):
-    - Amplitude (= 8.2.0)
+  - Amplitude (8.7.1)
+  - amplitude-react-native (2.7.0):
+    - Amplitude (= 8.7.1)
     - React-Core
   - appcenter-analytics (4.1.0):
     - AppCenter/Analytics (~> 4.0)
@@ -10,19 +10,15 @@ PODS:
   - appcenter-core (4.1.0):
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - appcenter-crashes (4.1.0):
-    - AppCenter/Crashes (~> 4.0)
-    - AppCenterReactNativeShared (~> 4.0)
-    - React-Core
   - AppCenter/Analytics (4.1.1):
     - AppCenter/Core
   - AppCenter/Core (4.1.1)
-  - AppCenter/Crashes (4.1.1):
-    - AppCenter/Core
   - AppCenterReactNativeShared (4.1.0):
     - AppCenter/Core (= 4.1.1)
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
+  - BugsnagReactNative (7.16.1):
+    - React-Core
   - CodePush (7.0.4):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
@@ -270,7 +266,7 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.0.1):
     - React-Core
-  - react-native-netinfo (6.0.2):
+  - react-native-netinfo (7.1.9):
     - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
@@ -383,7 +379,7 @@ DEPENDENCIES:
   - "amplitude-react-native (from `../node_modules/@amplitude/react-native`)"
   - appcenter-analytics (from `../../../node_modules/appcenter-analytics/ios`)
   - appcenter-core (from `../../../node_modules/appcenter/ios`)
-  - appcenter-crashes (from `../../../node_modules/appcenter-crashes/ios`)
+  - "BugsnagReactNative (from `../node_modules/@bugsnag/react-native`)"
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXAppleAuthentication (from `../node_modules/expo-apple-authentication/ios`)
@@ -467,8 +463,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/appcenter-analytics/ios"
   appcenter-core:
     :path: "../../../node_modules/appcenter/ios"
-  appcenter-crashes:
-    :path: "../../../node_modules/appcenter-crashes/ios"
+  BugsnagReactNative:
+    :path: "../node_modules/@bugsnag/react-native"
   CodePush:
     :path: "../node_modules/react-native-code-push"
   DoubleConversion:
@@ -589,15 +585,15 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Amplitude: 263118b9e691e73a1c864b05bb08a3aff3636d16
-  amplitude-react-native: ab47821981de1d0fcee70ee96213108d098f74ce
+  Amplitude: 834c7332dfb9640a751e21c13efb22a07c0c12d4
+  amplitude-react-native: 0ed8cab759aafaa94961b82122bf56297da607ad
   AppCenter: cd53e3ed3563cc720bcb806c9731a12389b40d44
   appcenter-analytics: aa074250b2cb182d6f7d67d9c236dd4606673ab5
   appcenter-core: c97920e79eba2321a262d3733cb2a6f1097db539
-  appcenter-crashes: 804ae51c5d1742ce20fdb6a68b3d06208a404ad5
   AppCenterReactNativeShared: 2d5a53b6cbd2fe7f63f0033e9f0a40757a4eacf5
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BugsnagReactNative: bd1c905fb868fae8448a913b87356dbf2b02dc80
   CodePush: b51b7ac64c07d4eacfc8cc5750a1dd28adbf2528
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   EXAppleAuthentication: e8c537fcbe80670dd76fde7a07acb94af70ada00
@@ -630,7 +626,7 @@ SPEC CHECKSUMS:
   react-native-ble-plx: f10240444452dfb2d2a13a0e4f58d7783e92d76e
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-camera: 11166fe7e3a673493c152f52966e8ab1c5cdcacc
-  react-native-netinfo: 92e6e4476eb8bf6fc2d7c0a6ca0a1406f663d73a
+  react-native-netinfo: 87e5bfaf21ea5c6c110941290aa481dd8e849f98
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-webview: cc4ac8f021a832dce2979e1f48c5595341dd2fb5
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336

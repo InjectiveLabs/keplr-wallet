@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import {
   BIP44HDPath,
@@ -9,6 +9,7 @@ import {
 import {
   DrawerActions,
   NavigationContainer,
+  NavigationContainerRef,
   useNavigation,
 } from "@react-navigation/native";
 import { useStore } from "./stores";
@@ -103,6 +104,7 @@ import {
 } from "./screens/register/import-from-extension";
 import { OsmosisWebpageScreen } from "./screens/web/webpages";
 import { WebpageScreenScreenOptionsPreset } from "./screens/web/components/webpage-screen";
+import Bugsnag from "@bugsnag/react-native";
 
 const {
   SmartNavigatorProvider,
@@ -892,14 +894,57 @@ export const MainTabNavigationWithDrawer: FunctionComponent = () => {
   );
 };
 
+const BugsnagNavigationContainerPlugin = Bugsnag.getPlugin("reactNavigation");
+// The returned BugsnagNavigationContainer has exactly the same usage
+// except now it tracks route information to send with your error reports
+const BugsnagNavigationContainer = (() => {
+  if (BugsnagNavigationContainerPlugin) {
+    console.log("BugsnagNavigationContainerPlugin found");
+    return BugsnagNavigationContainerPlugin.createNavigationContainer(
+      NavigationContainer
+    );
+  } else {
+    console.log(
+      "WARNING: BugsnagNavigationContainerPlugin is null. Fallback to use basic NavigationContainer"
+    );
+    return NavigationContainer;
+  }
+})();
+
 export const AppNavigation: FunctionComponent = observer(() => {
-  const { keyRingStore } = useStore();
+  const { keyRingStore, analyticsStore } = useStore();
+
+  const navigationRef = useRef<NavigationContainerRef | null>(null);
+  const routeNameRef = useRef<string | null>(null);
 
   return (
     <PageScrollPositionProvider>
       <FocusedScreenProvider>
         <SmartNavigatorProvider>
-          <NavigationContainer>
+          <BugsnagNavigationContainer
+            ref={navigationRef}
+            onReady={() => {
+              const routerName = navigationRef.current?.getCurrentRoute();
+              if (routerName) {
+                routeNameRef.current = routerName.name;
+
+                analyticsStore.logPageView(routerName.name);
+              }
+            }}
+            onStateChange={() => {
+              const routerName = navigationRef.current?.getCurrentRoute();
+              if (routerName) {
+                const previousRouteName = routeNameRef.current;
+                const currentRouteName = routerName.name;
+
+                if (previousRouteName !== currentRouteName) {
+                  analyticsStore.logPageView(currentRouteName);
+                }
+
+                routeNameRef.current = currentRouteName;
+              }
+            }}
+          >
             <Stack.Navigator
               initialRouteName={
                 keyRingStore.status !== KeyRingStatus.UNLOCKED
@@ -924,7 +969,7 @@ export const AppNavigation: FunctionComponent = observer(() => {
                 component={AddressBookStackScreen}
               />
             </Stack.Navigator>
-          </NavigationContainer>
+          </BugsnagNavigationContainer>
           {/* <ModalsRenderer /> */}
         </SmartNavigatorProvider>
       </FocusedScreenProvider>

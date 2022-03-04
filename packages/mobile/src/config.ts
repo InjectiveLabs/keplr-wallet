@@ -20,7 +20,7 @@ export const EmbedChainInfos: AppChainInfo[] = [
     rpc: "https://rpc-cosmoshub.keplr.app",
     rest: "https://lcd-cosmoshub.keplr.app",
     chainId: "cosmoshub-4",
-    chainName: "Cosmos",
+    chainName: "Cosmos Hub",
     stakeCurrency: {
       coinDenom: "ATOM",
       coinMinimalDenom: "uatom",
@@ -641,7 +641,7 @@ export const EmbedChainInfos: AppChainInfo[] = [
         coinGeckoId: "certik",
       },
     ],
-    features: ["stargate", "ibc-transfer"],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
     hideInUI: true,
   },
   {
@@ -727,7 +727,7 @@ export const EmbedChainInfos: AppChainInfo[] = [
       },
     ],
     chainSymbolImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/regen.png",
-    features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
   },
   {
     rpc: "https://rpc-juno.keplr.app",
@@ -763,6 +763,11 @@ export const EmbedChainInfos: AppChainInfo[] = [
         coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/juno.png",
       },
     ],
+    gasPriceStep: {
+      low: 0.001,
+      average: 0.0025,
+      high: 0.004,
+    },
     features: [
       "stargate",
       "no-legacy-stdTx",
@@ -903,6 +908,77 @@ export const EmbedChainInfos: AppChainInfo[] = [
     features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
     chainSymbolImageUrl:
       "https://dhj8dql1kzq2v.cloudfront.net/white/axelar.png",
+  },
+  {
+    rpc: "https://rpc-sommelier.keplr.app",
+    rest: "https://lcd-sommelier.keplr.app",
+    chainId: "sommelier-3",
+    chainName: "Sommelier",
+    stakeCurrency: {
+      coinDenom: "SOMM",
+      coinMinimalDenom: "usomm",
+      coinDecimals: 6,
+      coinGeckoId: "sommelier",
+      coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/somm.png",
+    },
+    bip44: {
+      coinType: 118,
+    },
+    bech32Config: Bech32Address.defaultBech32Config("somm"),
+    currencies: [
+      {
+        coinDenom: "SOMM",
+        coinMinimalDenom: "usomm",
+        coinDecimals: 6,
+        coinGeckoId: "sommelier",
+        coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/somm.png",
+      },
+    ],
+    feeCurrencies: [
+      {
+        coinDenom: "SOMM",
+        coinMinimalDenom: "usomm",
+        coinDecimals: 6,
+        coinGeckoId: "sommelier",
+        coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/somm.png",
+      },
+    ],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
+    chainSymbolImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/somm.png",
+  },
+  {
+    rpc: "https://rpc-umee.keplr.app",
+    rest: "https://lcd-umee.keplr.app",
+    chainId: "umee-1",
+    chainName: "Umee",
+    stakeCurrency: {
+      coinDenom: "UMEE",
+      coinMinimalDenom: "uumee",
+      coinDecimals: 6,
+      coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/umee.png",
+    },
+    bip44: {
+      coinType: 118,
+    },
+    bech32Config: Bech32Address.defaultBech32Config("umee"),
+    currencies: [
+      {
+        coinDenom: "UMEE",
+        coinMinimalDenom: "uumee",
+        coinDecimals: 6,
+        coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/umee.png",
+      },
+    ],
+    feeCurrencies: [
+      {
+        coinDenom: "UMEE",
+        coinMinimalDenom: "uumee",
+        coinDecimals: 6,
+        coinImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/umee.png",
+      },
+    ],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
+    chainSymbolImageUrl: "https://dhj8dql1kzq2v.cloudfront.net/white/umee.png",
   },
   {
     rpc: "https://rpc-sentinel.keplr.app",
@@ -1614,3 +1690,5 @@ export const EmbedChainInfos: AppChainInfo[] = [
     hideInUI: true,
   },
 ];
+
+export const AmplitudeApiKey = "dbcaf47e30aae5b712bda7f892b2f0c4";

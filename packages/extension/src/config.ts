@@ -87,6 +87,18 @@ import {
   STARGAZE_RPC_CONFIG,
   STARGAZE_REST_ENDPOINT,
   STARGAZE_REST_CONFIG,
+  SOMMELIER_RPC_ENDPOINT,
+  SOMMELIER_RPC_CONFIG,
+  SOMMELIER_REST_ENDPOINT,
+  SOMMELIER_REST_CONFIG,
+  UMEE_RPC_ENDPOINT,
+  UMEE_RPC_CONFIG,
+  UMEE_REST_ENDPOINT,
+  UMEE_REST_CONFIG,
+  EVMOS_RPC_ENDPOINT,
+  EVMOS_RPC_CONFIG,
+  EVMOS_REST_ENDPOINT,
+  EVMOS_REST_CONFIG,
 } from "./config.var";
 
 export const EmbedChainInfos: ChainInfo[] = [
@@ -96,7 +108,7 @@ export const EmbedChainInfos: ChainInfo[] = [
     rest: COSMOS_REST_ENDPOINT,
     restConfig: COSMOS_REST_CONFIG,
     chainId: "cosmoshub-4",
-    chainName: "Cosmos",
+    chainName: "Cosmos Hub",
     stakeCurrency: {
       coinDenom: "ATOM",
       coinMinimalDenom: "uatom",
@@ -888,7 +900,7 @@ export const EmbedChainInfos: ChainInfo[] = [
         coinGeckoId: "certik",
       },
     ],
-    features: ["stargate", "ibc-transfer"],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
   },
   {
     rpc: IRIS_RPC_ENDPOINT,
@@ -984,7 +996,7 @@ export const EmbedChainInfos: ChainInfo[] = [
         coinGeckoId: "regen",
       },
     ],
-    features: ["stargate", "ibc-go", "ibc-transfer"],
+    features: ["stargate", "ibc-go", "ibc-transfer", "ibc-go"],
   },
   {
     rpc: PERSISTENCE_RPC_ENDPOINT,
@@ -1087,7 +1099,7 @@ export const EmbedChainInfos: ChainInfo[] = [
     rpcConfig: KAVA_RPC_CONFIG,
     rest: KAVA_REST_ENDPOINT,
     restConfig: KAVA_REST_CONFIG,
-    chainId: "kava-8",
+    chainId: "kava-9",
     chainName: "Kava",
     stakeCurrency: {
       coinDenom: "KAVA",
@@ -1442,6 +1454,11 @@ export const EmbedChainInfos: ChainInfo[] = [
         coinGeckoId: "juno-network",
       },
     ],
+    gasPriceStep: {
+      low: 0.001,
+      average: 0.0025,
+      high: 0.004,
+    },
     features: [
       "stargate",
       "no-legacy-stdTx",
@@ -1537,6 +1554,135 @@ export const EmbedChainInfos: ChainInfo[] = [
       high: 0.1,
     },
     features: ["stargate", "no-legacy-stdTx", "ibc-transfer", "ibc-go"],
+  },
+  {
+    rpc: SOMMELIER_RPC_ENDPOINT,
+    rpcConfig: SOMMELIER_RPC_CONFIG,
+    rest: SOMMELIER_REST_ENDPOINT,
+    restConfig: SOMMELIER_REST_CONFIG,
+    chainId: "sommelier-3",
+    chainName: "Sommelier",
+    stakeCurrency: {
+      coinDenom: "SOMM",
+      coinMinimalDenom: "usomm",
+      coinDecimals: 6,
+      coinGeckoId: "sommelier",
+    },
+    walletUrl:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/sommelier/stake"
+        : "http://localhost:8080/#/sommelier/stake",
+    walletUrlForStaking:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/sommelier/stake"
+        : "http://localhost:8080/#/sommelier/stake",
+    bip44: {
+      coinType: 118,
+    },
+    bech32Config: Bech32Address.defaultBech32Config("somm"),
+    currencies: [
+      {
+        coinDenom: "SOMM",
+        coinMinimalDenom: "usomm",
+        coinDecimals: 6,
+        coinGeckoId: "sommelier",
+      },
+    ],
+    feeCurrencies: [
+      {
+        coinDenom: "SOMM",
+        coinMinimalDenom: "usomm",
+        coinDecimals: 6,
+        coinGeckoId: "sommelier",
+      },
+    ],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
+  },
+  {
+    rpc: UMEE_RPC_ENDPOINT,
+    rpcConfig: UMEE_RPC_CONFIG,
+    rest: UMEE_REST_ENDPOINT,
+    restConfig: UMEE_REST_CONFIG,
+    chainId: "umee-1",
+    chainName: "Umee",
+    stakeCurrency: {
+      coinDenom: "UMEE",
+      coinMinimalDenom: "uumee",
+      coinDecimals: 6,
+    },
+    walletUrl:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/umee/stake"
+        : "http://localhost:8080/#/umee/stake",
+    walletUrlForStaking:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/umee/stake"
+        : "http://localhost:8080/#/umee/stake",
+    bip44: {
+      coinType: 118,
+    },
+    bech32Config: Bech32Address.defaultBech32Config("umee"),
+    currencies: [
+      {
+        coinDenom: "UMEE",
+        coinMinimalDenom: "uumee",
+        coinDecimals: 6,
+      },
+    ],
+    feeCurrencies: [
+      {
+        coinDenom: "UMEE",
+        coinMinimalDenom: "uumee",
+        coinDecimals: 6,
+      },
+    ],
+    features: ["stargate", "ibc-transfer", "no-legacy-stdTx", "ibc-go"],
+  },
+  {
+    rpc: EVMOS_RPC_ENDPOINT,
+    rpcConfig: EVMOS_RPC_CONFIG,
+    rest: EVMOS_REST_ENDPOINT,
+    restConfig: EVMOS_REST_CONFIG,
+    chainId: "evmos_9001-1",
+    chainName: "Evmos (Beta)",
+    stakeCurrency: {
+      coinDenom: "EVMOS",
+      coinMinimalDenom: "aevmos",
+      coinDecimals: 18,
+    },
+    walletUrl:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/evmos/stake"
+        : "http://localhost:8080/#/evmos/stake",
+    walletUrlForStaking:
+      process.env.NODE_ENV === "production"
+        ? "https://wallet.keplr.app/#/evmos/stake"
+        : "http://localhost:8080/#/evmos/stake",
+    bip44: {
+      coinType: 60,
+    },
+    bech32Config: Bech32Address.defaultBech32Config("evmos"),
+    currencies: [
+      {
+        coinDenom: "EVMOS",
+        coinMinimalDenom: "aevmos",
+        coinDecimals: 18,
+      },
+    ],
+    feeCurrencies: [
+      {
+        coinDenom: "EVMOS",
+        coinMinimalDenom: "aevmos",
+        coinDecimals: 18,
+      },
+    ],
+    gasPriceStep: {
+      low: 0.005,
+      average: 0.025,
+      high: 0.04,
+    },
+    features: ["ibc-transfer", "stargate", "no-legacy-stdTx", "ibc-go"],
+    beta: true,
   },
   {
     rpc: BETA_STRAIGHTEDGE_RPC_ENDPOINT,
